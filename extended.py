@@ -9,11 +9,22 @@ resp_timeout = 5  # secs
 delay = 0.5  # secs
 
 headers = {
-    'user-agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-    'AppleWebKit/537.36 (KHTML, like Gecko) '
-    'Chrome/75.0.3770.100 Safari/537.36'
+    "user-agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/75.0.3770.100 Safari/537.36"
 }
+
+
+def interpret(link):
+    resp = requests.get(link, stream=True, headers=headers, timeout=resp_timeout)
+
+    resp_type = resp.headers["content-type"])
+
+    if resp_type == "application/vnd.apple.mpegurl":
+        
+    else:
+      
 
 
 def extract(source, file):
@@ -51,11 +62,15 @@ def mux(video_file, audio_file, output_file):
         outputs={output_file: "-b:v 1M"}
     )
     ff.run()
+    
 
 def main():
-    extract(source, file)
-    mux(video_file, audio_file, output_file)
+    link = input("Insert streaming or playlist link: ")
+    interpret(link)
+    #extract(source, file)
+    #mux(video_file, audio_file, output_file)
     print("Process finished.")
+
 
 if __name__ == "__main__":
     main()
