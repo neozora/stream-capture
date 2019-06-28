@@ -19,11 +19,16 @@ headers = {
 def interpret(link):
     resp = requests.get(link, stream=True, headers=headers, timeout=resp_timeout)
 
-    resp_type = resp.headers["content-type"])
+    resp_type = resp.headers["content-type"]
 
     if resp_type == "application/vnd.apple.mpegurl":
-        
+        return "Playlist"
+    elif resp_type == "audio/mpeg":
+        return "mp3"
+    elif resp_type == "video/mp4":
+        return "mp4"
     else:
+        return "Null"
       
 
 
@@ -66,7 +71,8 @@ def mux(video_file, audio_file, output_file):
 
 def main():
     link = input("Insert streaming or playlist link: ")
-    interpret(link)
+    file = input("Insert output file name: ")
+    print(interpret(link))
     #extract(source, file)
     #mux(video_file, audio_file, output_file)
     print("Process finished.")
