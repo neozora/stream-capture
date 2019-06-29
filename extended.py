@@ -3,7 +3,6 @@ import ffmpy
 import time
 
 source = ""  # Insert stream url
-file = ""  # Insert target media file
 chunk_size = 1024  # bytes
 resp_timeout = 5  # secs
 delay = 0.5  # secs
@@ -32,7 +31,7 @@ def interpret(link):
       
 
 
-def extract(source, file):
+def extract_stream(source, file):
     with open(file, "ab") as f:
         resp = requests.get(source, stream=True, headers=headers, timeout=resp_timeout)
         for chunk in resp.iter_content(chunk_size):
@@ -44,13 +43,13 @@ playlist = ""  # Insert playlist file url
 path = ""  # Insert streaming media root here
 
 
-def filter(playlist, path):
+def extract_playlist(playlist, path, file):
     resp = requests.get(playlist, headers=headers, timeout=resp_timeout)
     content = resp.content.decode("utf-8").splitlines()
     for line in content:
         if line[0] != "#":
             source = path + line
-            extract(source, file)
+            extract_stream(source, file)
             time.sleep(delay)
 
 
@@ -72,7 +71,10 @@ def mux(video_file, audio_file, output_file):
 def main():
     link = input("Insert streaming or playlist link: ")
     file = input("Insert output file name: ")
-    print(interpret(link))
+    if interpret(link) == "Playlist" :
+        extract_playlist(link, path, file)
+    else:
+        extract_stream(link, file)
     #extract(source, file)
     #mux(video_file, audio_file, output_file)
     print("Process finished.")
