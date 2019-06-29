@@ -26,9 +26,8 @@ def extract(source, file):
 
 # extract(source, file)
 
-playlist = ""  # Insert playlist file url
-path = ""  # Insert streaming media root here
-
+playlist = ""
+path = ""
 
 def filter(playlist, path):
     resp = requests.get(playlist, headers=headers, timeout=resp_timeout)
@@ -40,7 +39,7 @@ def filter(playlist, path):
             time.sleep(delay)
 
 
-#  filter(playlist, path)
+# filter(playlist, path)
 
 video_file = ""  # Insert video file here
 audio_file = ""  # Insert audio file here
