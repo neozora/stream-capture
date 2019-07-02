@@ -6,6 +6,7 @@ source = ""  # Insert stream url
 chunk_size = 1024  # bytes
 resp_timeout = 5  # secs
 delay = 0.5  # secs
+path = ""
 
 headers = {
     "user-agent":
@@ -28,19 +29,14 @@ def interpret(link):
         return "mp4"
     else:
         return "Null"
-      
 
 
-def extract_stream(source, file):
-    with open(file, "ab") as f:
+def extract_stream(source, file, ext):
+    with open(file + "." + ext, "ab") as f:
         resp = requests.get(source, stream=True, headers=headers, timeout=resp_timeout)
         for chunk in resp.iter_content(chunk_size):
             f.write(chunk)
         f.close()
-
-
-playlist = ""  # Insert playlist file url
-path = ""  # Insert streaming media root here
 
 
 def extract_playlist(playlist, path, file):
@@ -49,7 +45,7 @@ def extract_playlist(playlist, path, file):
     for line in content:
         if line[0] != "#":
             source = path + line
-            extract_stream(source, file)
+            extract_stream(source, file, "ts")
             time.sleep(delay)
 
 
@@ -66,17 +62,16 @@ def mux(video_file, audio_file, output_file):
         outputs={output_file: "-b:v 1M"}
     )
     ff.run()
-    
+
 
 def main():
     link = input("Insert streaming or playlist link: ")
     file = input("Insert output file name: ")
-    if interpret(link) == "Playlist" :
+    ext = interpret(link)
+    if ext == "Playlist":
         extract_playlist(link, path, file)
     else:
-        extract_stream(link, file)
-    #extract(source, file)
-    #mux(video_file, audio_file, output_file)
+        extract_stream(link, file, ext)
     print("Process finished.")
 
 
