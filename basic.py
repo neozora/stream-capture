@@ -25,13 +25,13 @@ def extract(source_url, file):
             f.write(chunk)
 
 
-# filtration
+# playlist interpretation
 
 delay = 0.5 # secs
 playlist_url = "<Insert playlist url here>"
 
 
-def filter(playlist_url):
+def interpret(playlist_url):
     resp = requests.get(playlist_url, timeout=resp_timeout)
     content = resp.content.decode("utf-8").splitlines()
     for line in content:
@@ -48,7 +48,7 @@ output_file = "<Insert output media file name here>"
 
 
 def mux(video_file, audio_file, output_file):
-    Ff = ffmpy.FFmpeg(
+    ff = ffmpy.FFmpeg(
             inputs = {video_file: None, audio_file: None},
             outputs = {output_file: "-b:v 1M" }
     )
