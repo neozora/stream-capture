@@ -18,6 +18,8 @@ headers = {
 
 
 def extract(source, temp_file):
+    print("Extracting")
+    
     with open(temp_file, "ab") as f:
         resp = requests.get(source, stream=True, headers=headers, timeout=resp_timeout)
         for chunk in resp.iter_content(chunk_size):
@@ -25,7 +27,7 @@ def extract(source, temp_file):
 
 
 def interpret(playlist_url, temp_file):
-
+    print("Interpreting playlist") 
     prefix = playlist_url.split("/sec")[0]
     
     resp = requests.get(playlist_url, headers=headers, timeout=resp_timeout)
@@ -51,7 +53,7 @@ def main():
     interpret(playlist_url, temp_file)
     convert(temp_file, output_file)
     os.remove(temp_file)
-    print("Process finished.")
+    input("Process finished.")
 
 
 if __name__ == "__main__":
