@@ -4,4 +4,4 @@ Created for PyCon My 2019.
   
 Usage:
 1. Download and install ffmpeg from https://ffmpeg.org/download.html
-2. cd to this directory and `pip install -r requirements`
+2. cd to this directory and `pip install -r requirements.txt`
