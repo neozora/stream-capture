@@ -1,6 +1,7 @@
 # stream-capture
 Basic media streaming capture using Python Requests library.  
-Created for PyCon My 2019.  
+Also includes a sample video downloader script for Daily Motion.  
+Created for PyCon My 2019.    
   
 Usage:
 1. Download and install ffmpeg from https://ffmpeg.org/download.html
