@@ -7,4 +7,4 @@ Usage:
 1. Download and install ffmpeg from https://ffmpeg.org/download.html
 2. cd to this directory and `pip install -r requirements.txt`
 
-Tested and working on Python 3.7 (32-bit), Windows 10.
+Tested to be working on Python 3.7 (32-bit), Windows 10.
